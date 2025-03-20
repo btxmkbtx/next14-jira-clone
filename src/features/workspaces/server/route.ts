@@ -18,6 +18,12 @@ import { Hono } from "hono";
 import { ID, Query } from "node-appwrite";
 import { z } from "zod";
 
+/**
+ * 本篇代码遇到过的问题：
+ * １、抛出异常的返回一定要附加上错误代码，否则无法通过设置InferResponseType的错误码来排除异常类返回type
+ * ✖return c.json({ error: "xxxxxx" })
+ * 〇return c.json({ error: "xxxxxx" }, 400)
+ */
 const app = new Hono()
   .get("/", sessionMiddleWare, async (c) => {
     const user = c.get("user");
@@ -211,7 +217,7 @@ const app = new Hono()
       });
 
       if (member) {
-        return c.json({ error: "Already a member" });
+        return c.json({ error: "Already a member" }, 400);
       }
 
       const workspace = await databases.getDocument<Workspace>(
@@ -227,7 +233,7 @@ const app = new Hono()
       await databases.createDocument(DATABASE_ID!, MEMBERS_ID!, ID.unique(), {
         workspaceId,
         userId: user.$id,
-        rolw: MemberRole.MEMBER,
+        role: MemberRole.MEMBER,
       });
 
       return c.json({ data: workspace });
