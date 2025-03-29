@@ -5,38 +5,37 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 type ResponseType = InferResponseType<
-  (typeof client.api.workspaces)[":workspaceId"]["$patch"],
-  200 //只想拿到成功的返回结果的结构，因为我在mutationFn中已经处理了错误情况
+  (typeof client.api.projects)[":projectId"]["$patch"],
+  200
 >;
 type RequestType = InferRequestType<
-  (typeof client.api.workspaces)[":workspaceId"]["$patch"]
+  (typeof client.api.projects)[":projectId"]["$patch"]
 >;
 
-export const useUpdateWorkspace = () => {
+export const useUpdateProject = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const mutation = useMutation<ResponseType, Error, RequestType>({
     mutationFn: async ({ form, param }) => {
-      const respose = await client.api.workspaces[":workspaceId"]["$patch"]({
+      const respose = await client.api.projects[":projectId"]["$patch"]({
         form,
         param,
       });
 
       if (!respose.ok) {
-        throw new Error("Failed to update workspace");
+        throw new Error("Failed to update project");
       }
 
       return await respose.json();
     },
     onSuccess: ({ data }) => {
-      toast.success("Workspace updated");
-
+      toast.success("Project updated");
       router.refresh();
-      queryClient.invalidateQueries({ queryKey: ["workspaces"] });
-      queryClient.invalidateQueries({ queryKey: ["workspace", data.$id] });
+      queryClient.invalidateQueries({ queryKey: ["projects"] });
+      queryClient.invalidateQueries({ queryKey: ["project", data.$id] });
     },
     onError: () => {
-      toast.error("Failed to create workspace");
+      toast.error("Failed to create project");
     },
   });
 

@@ -4,3 +4,4 @@ export const MEMBERS_ID = process.env.NEXT_PUBLIC_APPWRITE_MEMBERS_ID;
 export const PROJECTS_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECTS_ID;
 export const IMAGES_BUCKET_ID =
   process.env.NEXT_PUBLIC_APPWRITE_IMAGES_BUCKET_ID;
+export const TASKS_ID = process.env.NEXT_PUBLIC_APPWRITE_TASKS_ID!; //在这加上感叹号，用的时候就不用加感叹号了,上面的这些当时忘了加上感叹号。

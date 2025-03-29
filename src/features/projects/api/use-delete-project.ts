@@ -5,39 +5,36 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 type ResponseType = InferResponseType<
-  (typeof client.api.workspaces)[":workspaceId"]["reset-invite-code"]["$post"],
+  (typeof client.api.projects)[":projectId"]["$delete"],
   200
 >;
 type RequestType = InferRequestType<
-  (typeof client.api.workspaces)[":workspaceId"]["reset-invite-code"]["$post"]
+  (typeof client.api.projects)[":projectId"]["$delete"]
 >;
 
-export const useResetInviteCode = () => {
+export const useDeleteProject = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const mutation = useMutation<ResponseType, Error, RequestType>({
     mutationFn: async ({ param }) => {
-      const respose = await client.api.workspaces[":workspaceId"][
-        "reset-invite-code"
-      ]["$post"]({
+      const respose = await client.api.projects[":projectId"]["$delete"]({
         param,
       });
 
       if (!respose.ok) {
-        throw new Error("Failed to reset invite code");
+        throw new Error("Failed to delete project");
       }
 
       return await respose.json();
     },
     onSuccess: ({ data }) => {
-      toast.success("Invite code reset");
-      //因为settings\page.tsx是一个服务器组件，所以需要手动刷新页面才能反映reset数据
+      toast.success("Project deleted");
       router.refresh();
-      queryClient.invalidateQueries({ queryKey: ["workspaces"] });
-      queryClient.invalidateQueries({ queryKey: ["workspaces", data.$id] });
+      queryClient.invalidateQueries({ queryKey: ["projects"] });
+      queryClient.invalidateQueries({ queryKey: ["project", data.$id] });
     },
     onError: () => {
-      toast.error("Failed to reset invite code");
+      toast.error("Failed to delete project");
     },
   });
 
