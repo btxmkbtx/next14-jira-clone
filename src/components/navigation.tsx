@@ -5,7 +5,13 @@ import { cn } from "@/lib/utils";
 import { Settings } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { GoHome, GoHomeFill, GoPeople } from "react-icons/go";
+import {
+  GoCheckCircle,
+  GoCheckCircleFill,
+  GoHome,
+  GoHomeFill,
+  GoPeople,
+} from "react-icons/go";
 
 const routes = [
   {
@@ -17,8 +23,8 @@ const routes = [
   {
     label: "My Tasks",
     href: "/tasks",
-    icon: GoHome,
-    activeIcon: GoHomeFill,
+    icon: GoCheckCircle,
+    activeIcon: GoCheckCircleFill,
   },
   {
     label: "Settings",

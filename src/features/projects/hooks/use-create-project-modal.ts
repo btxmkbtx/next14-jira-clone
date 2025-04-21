@@ -3,7 +3,7 @@ import { parseAsBoolean, useQueryState } from "nuqs";
 export const useCreateProjectModal = () => {
   const [isOpen, setIsOpen] = useQueryState(
     "create-project",
-    //clearOnDefault：在false时清除create-project
+    //clearOnDefault：在false时从浏览器url中清除create-project
     parseAsBoolean.withDefault(false).withOptions({ clearOnDefault: true })
   );
 

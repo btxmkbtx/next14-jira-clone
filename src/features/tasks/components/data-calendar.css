@@ -1,0 +1,60 @@
+.rbc-header {
+  @apply text-sm;
+  @apply font-normal;
+  @apply pb-4;
+  @apply text-muted-foreground;
+  @apply border-b-0;
+}
+
+/* .rbc-header + .rbc-header	相邻兄弟选择器，表示：选择紧跟在另一个 .rbc-header 后面的 .rbc-header 元素
+@apply border-l-0;	使用 Tailwind 的 @apply 指令，将类名 border-l-0 应用为实际的 CSS 属性（等价于 border-left-width: 0px;） */
+.rbc-header + .rbc-header {
+  @apply border-l-0;
+}
+
+.rbc-button-link {
+  @apply text-xs;
+  @apply font-normal;
+  @apply text-muted-foreground;
+}
+
+.rbc-month-row {
+  @apply min-h-[180px];
+  @apply border-t;
+  @apply border-x;
+}
+
+/* 
+:not()：匹配不满足括号内条件的元素。
+
+.rbc-month-row ~ .rbc-month-row：
+选择所有位于其他 .rbc-month-row 元素之后的同级 .rbc-month-row 元素（相邻兄弟选择器）。
+
+组合逻辑：
+最终选择的是不位于其他 .rbc-month-row 之后的 .rbc-month-row 元素（即第一个或独立的 .rbc-month-row）。
+*/
+:not(.rbc-month-row ~ .rbc-month-row).rbc-month-row {
+  @apply rounded-t-md;
+}
+
+.rbc-month-row:last-of-type {
+  @apply border-b;
+  @apply rounded-b-md;
+}
+
+.rbc-month-view {
+  @apply border-none;
+}
+
+.rbc-date-cell {
+  @apply p-2;
+}
+
+/* inherit:显式指定属性应从父元素继承其值 */
+.rbc-today {
+  background-color: inherit;
+}
+
+.rbc-off-range-bg {
+  background: inherit;
+}

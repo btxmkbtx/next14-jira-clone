@@ -1,6 +1,5 @@
+import { WorkspaceIdSettingsClient } from "@/app/(standalone)/workspaces/[workspaceId]/settings/client";
 import { getCurrent } from "@/features/auth/queries";
-import { EditWorkspaceForm } from "@/features/workspaces/components/edit-workspace-form";
-import { getWorkspace } from "@/features/workspaces/queries";
 import { redirect } from "next/navigation";
 
 interface WorkspaceIdSettingsPageProps {
@@ -15,17 +14,8 @@ const WorkspaceIdSettingsPage = async ({
   const user = await getCurrent();
   if (!user) redirect("/sign-in");
 
-  const initialValues = await getWorkspace({ workspaceId: params.workspaceId });
-
-  if (!initialValues) {
-    redirect(`/workspaces/${params.workspaceId}`);
-  }
-
-  return (
-    <div className="w-full lg:max-w-xl">
-      <EditWorkspaceForm initialValues={initialValues} />
-    </div>
-  );
+  // 带有更新功能的页面要把内容设计到客户端组件中
+  return <WorkspaceIdSettingsClient />;
 };
 
 export default WorkspaceIdSettingsPage;

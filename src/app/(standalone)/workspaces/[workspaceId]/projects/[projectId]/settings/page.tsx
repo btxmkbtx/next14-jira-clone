@@ -1,6 +1,5 @@
+import { ProjectIdSettingsClient } from "@/app/(standalone)/workspaces/[workspaceId]/projects/[projectId]/settings/client";
 import { getCurrent } from "@/features/auth/queries";
-import { EditProjectForm } from "@/features/projects/components/edit-project-form";
-import { getProject } from "@/features/projects/queries";
 import { redirect } from "next/navigation";
 
 interface ProjectIdSettingPageProps {
@@ -9,19 +8,14 @@ interface ProjectIdSettingPageProps {
   };
 }
 
-const ProjectIdSettingPage = async ({ params }: ProjectIdSettingPageProps) => {
+const ProjectIdSettingPage = async ({
+  params, //服务器组件的取参方式
+}: ProjectIdSettingPageProps) => {
   const user = await getCurrent();
   if (!user) redirect("/sign-in");
 
-  const initialValues = await getProject({
-    projectId: params.projectId,
-  });
-
-  return (
-    <div className="w-full lg:max-w-xl">
-      <EditProjectForm initialValues={initialValues} />
-    </div>
-  );
+  // 带有更新功能的页面要把内容设计到客户端组件中
+  return <ProjectIdSettingsClient />;
 };
 
 export default ProjectIdSettingPage;
