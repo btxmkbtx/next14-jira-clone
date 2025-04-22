@@ -2,15 +2,7 @@ import { ProjectIdSettingsClient } from "@/app/(standalone)/workspaces/[workspac
 import { getCurrent } from "@/features/auth/queries";
 import { redirect } from "next/navigation";
 
-interface ProjectIdSettingPageProps {
-  params: {
-    projectId: string;
-  };
-}
-
-const ProjectIdSettingPage = async ({
-  params, //服务器组件的取参方式
-}: ProjectIdSettingPageProps) => {
+const ProjectIdSettingPage = async () => {
   const user = await getCurrent();
   if (!user) redirect("/sign-in");
 

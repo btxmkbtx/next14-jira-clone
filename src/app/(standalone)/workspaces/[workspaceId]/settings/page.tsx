@@ -2,15 +2,7 @@ import { WorkspaceIdSettingsClient } from "@/app/(standalone)/workspaces/[worksp
 import { getCurrent } from "@/features/auth/queries";
 import { redirect } from "next/navigation";
 
-interface WorkspaceIdSettingsPageProps {
-  params: {
-    workspaceId: string;
-  };
-}
-
-const WorkspaceIdSettingsPage = async ({
-  params, //服务器组件的取参方式
-}: WorkspaceIdSettingsPageProps) => {
+const WorkspaceIdSettingsPage = async () => {
   const user = await getCurrent();
   if (!user) redirect("/sign-in");
 

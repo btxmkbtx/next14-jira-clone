@@ -12,7 +12,8 @@ import { handle } from "hono/vercel";
 
 const app = new Hono().basePath("/api");
 
-export const routes = app
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const routes = app
   .route("/auth", auth)
   .route("/workspaces", workspaces)
   .route("/members", members)
