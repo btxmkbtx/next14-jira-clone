@@ -1,5 +1,11 @@
 # package add list
 
+bunx --bun shadcn@2.1.0 init
+![alt text](img_shadcn_init.png)
+
+**执行 shadcn@lastest add 会弹出选择列表，src\components\ui 下的所以控件都是在这选出来的**
+bunx --bun shadcn@2.1.0 add
+
 bun add hono@4.6.3
 
 bun add @tanstack/react-query@5.59.0
